@@ -9,12 +9,12 @@ namespace DAL.Data.Abstract
 {
 	public interface IRepository<T> 
 	{
-		IEnumerable<T> Repository { get; }
+		IReadOnlyCollection<T> GetAll();
 
 		void Create(T data);
-		T Read(int id);
+		T Read(int? id);
 		void Update(T data);
-		void Delete(T data);
+		void Delete(int? id);
 
 	}
 }

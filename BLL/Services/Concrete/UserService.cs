@@ -16,6 +16,6 @@ namespace BLL.Services.Concrete
 			_userRepository = userRepository;
 		}
 
-		public IEnumerable<User> GetAllUsers { get { return _userRepository.Repository; } }
+		public IEnumerable<User> GetAllUsers { get { return _userRepository.GetAll(); } }
 	}
 }

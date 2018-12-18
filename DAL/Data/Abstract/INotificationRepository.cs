@@ -10,8 +10,6 @@ namespace DAL.Data.Abstract
 	public interface INotificationRepository : IRepository<Notification>
 	{
 
-		void DeleteNotificationById(int id);
-
 		IEnumerable<Notification> GetNotificationsByName(string name);
 
 		IEnumerable<Notification> GetNotificationsByCategoryName(string categoryName);

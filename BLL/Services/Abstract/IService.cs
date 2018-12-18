@@ -11,6 +11,6 @@ namespace BLL.Services.Abstract
 		void Create(T data);
 		T Read(int id);
 		void Update(T data);
-		void Delete(T data);
+		void Delete(int? id);
 	}
 }

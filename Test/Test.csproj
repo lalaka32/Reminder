@@ -62,7 +62,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserServiceTest.cs" />
+    <Compile Include="DALTests\StaticNotificationRepository.cs" />
+    <Compile Include="BLLTests\UserServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

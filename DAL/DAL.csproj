@@ -41,6 +41,7 @@
       <HintPath>..\packages\structuremap.web.3.1.0.133\lib\net40\StructureMap.Web.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,11 +54,13 @@
     <Compile Include="Data\Abstract\INotificationRepository.cs" />
     <Compile Include="Data\Abstract\IRepository.cs" />
     <Compile Include="Data\Abstract\IUserRepository.cs" />
-    <Compile Include="Data\Concrete\StaticNotificationRepository.cs" />
-    <Compile Include="Data\Concrete\StaticRepository.cs" />
-    <Compile Include="Data\Concrete\UserStaticRepository.cs" />
+    <Compile Include="Data\Concrete\NotificationReporitory.cs" />
+    <Compile Include="Data\Concrete\UserRepository.cs" />
+    <Compile Include="DbConstants.cs" />
     <Compile Include="DI\DALRegistry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlHelpers\Abstract\ISqlFactory.cs" />
+    <Compile Include="SqlHelpers\Concrete\SqlFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entities\Entities.csproj">
@@ -68,5 +71,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -18,7 +18,7 @@ namespace BLL.Services.Concrete
 			_notificationRepository = notificationRepository;
 		}
 
-		public IEnumerable<Notification> GetAllNotifications { get { return _notificationRepository.Repository; } }
+		public IEnumerable<Notification> GetAllNotifications { get { return _notificationRepository.GetAll(); } }
 
 		public IEnumerable<Notification> GetNotificationsByCategoryName(string categoryName)
 		{

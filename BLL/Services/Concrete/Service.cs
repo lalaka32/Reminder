@@ -22,7 +22,7 @@ namespace BLL.Services.Concrete
 			_repository.Create(data);
 		}
 
-		public void Delete(T data)
+		public void Delete(int? data)
 		{
 			_repository.Delete(data);
 		}
