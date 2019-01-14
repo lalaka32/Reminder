@@ -26,6 +26,16 @@
 					<li>@Html.ActionLink("Home", "Index", "Home")</li>
 					<li>@Html.ActionLink("About", "About", "Home")</li>
 					<li>@Html.ActionLink("Contacts", "Contact", "Home")</li>
+					@if (User.Identity.IsAuthenticated)
+					{
+						<li>@Html.ActionLink("Reminders", "List", "Reminder", new { login = User.Identity.Name }, null)</li>
+					}
+					@if (User.IsInRole("Moderator")|| User.IsInRole("Admin"))
+					{
+						<li>
+							@Html.ActionLink("Users data", "Index", "User")
+						</li>
+					}
 				</ul>
 				@Html.Partial("_LoginPartial")
 			</div>

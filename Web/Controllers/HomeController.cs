@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,15 +9,17 @@ namespace Web.Controllers
 {
 	public class HomeController : Controller
 	{
-		public HomeController()
-		{
-
-		}
+		//IAdvertisingService _advertisingService;
+		//public HomeController(IAdvertisingService advertisingService)
+		//{
+		//	_advertisingService = advertisingService;
+		//}
 		public ActionResult Index()
 		{
+			//ViewBag.Advert = _advertisingService.GetAdvertising();
 			return View();
 		}
-
+		
 		public ActionResult About()
 		{
 			ViewBag.Message = "Description.";
@@ -24,6 +27,7 @@ namespace Web.Controllers
 			return View();
 		}
 
+		[Authorize]
 		public ActionResult Contact()
 		{
 			ViewBag.Message = "Contact.";

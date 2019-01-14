@@ -1,0 +1,34 @@
+﻿@model Web.Models.ReminderAction.ReminderActionViewModel
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete action</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Description)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Description)
+		</dd>
+
+	</dl>
+
+	@using (Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+		@Html.HiddenFor(x => x.IdReminder)
+		@Html.HiddenFor(x => x.Id)
+		<div class="form-actions no-color">
+			<input type="submit" value="Delete" class="btn btn-default" /> |
+			@Html.ActionLink("Back to Actions", "Index", new { reminderId = Model.IdReminder })
+		</div>
+	}
+</div>

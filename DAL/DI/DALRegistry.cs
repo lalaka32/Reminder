@@ -1,7 +1,7 @@
-﻿using DAL.Data.Abstract;
+﻿using DAL.Data.Interfaces;
 using DAL.Data.Concrete;
-using DAL.SqlHelpers.Abstract;
-using DAL.SqlHelpers.Concrete;
+using DAL.Helpers.Interfaces;
+using DAL.Helpers.Concrete;
 using StructureMap.Configuration.DSL;
 
 namespace DAL.DI
@@ -10,9 +10,13 @@ namespace DAL.DI
 	{
 		public DALRegistry()
 		{
-			For<ISqlFactory>().Use<SqlFactory>();
-			//For<INotificationRepository>().Use<StaticNotificationRepository>();
+			For<IConnectionHelper>().Use<ConnectionHelper>();
+			For<IReminderRepository>().Use<ReminderReporitory>();
 			For<IUserRepository>().Use<UserRepository>();
+			For<IRoleRepository>().Use<RoleRepository>();
+			For<ICategoryRepository>().Use<CategoryRepository>();
+			For<IStateRepository>().Use<StateRepository>();
+			For<IActionRepository>().Use<ActionRepository>();
 		}
 	}
 }

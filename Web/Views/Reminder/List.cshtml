@@ -1,0 +1,196 @@
+﻿@model IEnumerable<Web.Models.Reminder.ReminderViewModel>
+
+@{
+	/**/
+
+	ViewBag.Title = "My";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/timeLine")
+
+<h2>@ViewBag.userName reminders</h2>
+
+
+<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#fiters" aria-expanded="false">Fiters</button>
+<div id="fiters" class="collapse" aria-expanded="false">
+	<div class="row">
+
+		<div class="col-md-2">
+			<label for="nameFiler" class="control-label">Name</label>
+
+			<input id="nameFiler" type="search" class="form-control" />
+		</div>
+		<div class="col-md-2">
+			<label for="categoryFiler" class="control-label">Category</label>
+			<select class="form-control " id="categoryFiler">
+				<option>Select category...</option>
+			</select>
+
+		</div>
+		<div class="col-md-2 ">
+			<label for="dateFiler" class="control-label">Date</label>
+
+			<input id="dateFiler" type="date" class="form-control" />
+		</div>
+
+	</div>
+	<div class="row" style="padding-top: 5px">
+		<div class=" col-md-6 offset-md-3">
+			<input id="useFilters" type="button" class="btn btn-primary" value="Search" />
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6 offset-md-3">
+		<ul class="timeline">
+
+			@foreach (var item in Model)
+			{
+				<li>
+					@Html.ActionLink(item.Name, "Details", new { Id = item.Id })
+					@Html.ActionLink(item.DateOfEvent.ToString("F", new System.Globalization.CultureInfo("en-EN")), "Details", new { Id = item.Id }, new { @class = "float-right", style = "text-decoration: none" })
+					<div>@item.Category.Name</div>
+					<p class="status label">@item.State.Name</p>
+					<p>@item.Description</p>
+				</li>
+			}
+		</ul>
+	</div>
+</div>
+
+<p>
+	@Html.ActionLink("Create New", "Create", new { login = ViewBag.login })
+</p>
+
+@section scripts{
+
+	<script>
+
+		let rulesTimelineReminderColor = {
+			Deferred: "timelineYellow",
+			Completed: "timelineRed",
+			Planned: "timelineBlue"
+		}
+
+		let rulesStatusColor = {
+			Deferred: " label-warning",
+			Completed: " label-danger",
+			Planned: " label-info"
+		}
+		function GetRenimderColor(state, rules) {
+			value = rules[state];
+			if (value == undefined) {
+				return "";
+			}
+			return value;
+		}
+		function SetStateColor(stateNode, rules) {
+
+			if (stateNode == undefined) {
+				return;
+			}
+			stateNode.className += rules[stateNode.innerHTML];
+		}
+
+		function SetColors() {
+			$('.timeline > li').each(function (index) {
+				let statusNode = this.getElementsByClassName("status")[0];
+				SetStateColor(statusNode, rulesStatusColor);
+
+				statusValue = statusNode.innerHTML;
+
+				let classNameColor = GetRenimderColor(statusValue, rulesTimelineReminderColor);
+
+				this.className += classNameColor;
+			});
+		}
+
+		function LoadReminders(data) {
+			$('.timeline > li').remove();
+			console.log(data);
+			for (var i = 0; i < data.length; i++) {
+				$('.timeline').append(GenerateHtmlReminder(data[i]));
+			}
+		}
+
+		function GenerateHtmlReminder(reminderObject) {
+
+			return '<li> <a href="' + '/Reminder/Details?Id=' + reminderObject.Id + '">' + reminderObject.Name + '</a>' +
+				'<a href="' + '/Reminder/Details?Id=' + reminderObject.Id + '" class="float-right" style="text-decoration: none">' + ToJavaScriptDate(reminderObject.DateOfEvent) + '</a>' +
+				'<div>' + reminderObject.Category.Name + '</div>' +
+				'<p class="status label">' +  reminderObject.State.Name + '</p>' +
+				'<p>' + reminderObject.Description+'</p>' +
+				'</li>';
+		}
+
+		function ToJavaScriptDate(value) {
+			var pattern = /Date\(([^)]+)\)/;
+			var results = pattern.exec(value);
+			var dt = new Date(parseFloat(results[1]));
+
+			var options = {
+				weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+			};
+			return "  "+ dt.toLocaleTimeString('en-EN', options);
+		}
+		function UpdateReminders() {
+			const xhr = new XMLHttpRequest();
+			if ($('#fiters').attr('aria-expanded') == "false") {
+				xhr.open('get', "/userReminders?login=" + '@ViewBag.login', true);
+				xhr.onload = () => {
+					const data = JSON.parse(xhr.responseText);
+					LoadReminders(data);
+					SetColors();
+				};
+				xhr.send();
+			}
+			else {
+				xhr.open('get', "/Reminder/ListJsonSearch?login=" + '@ViewBag.login' + '&name=' + $('#nameFiler').val() + '&categoryId=' + $('#categoryFiler').val() + '&date=' + $('#dateFiler').val(), true);
+				xhr.onload = () => {
+					const data = JSON.parse(xhr.responseText);
+					LoadReminders(data);
+					SetColors();
+				};
+				xhr.send();
+				//ListJsonSearch(string login, string name, int ? categoryId, DateTime ? dateOfEvent)
+
+			}
+		}
+		function SetCategories () {
+			const xhr = new XMLHttpRequest();
+			xhr.open('get', "/categories", true);
+			xhr.onload = () => {
+				const data = JSON.parse(xhr.responseText);
+				SetOptions(data);
+			};
+			xhr.send();
+		}
+		function SetOptions(data) {
+			let result = data.map(Category => ('<option value = "' + Category.Id + '">' + Category.Name + "</option>"));
+			$('#categoryFiler').append(result);
+		}
+
+		$('#useFilters').on('click', function () {
+			const xhr = new XMLHttpRequest();
+			xhr.open('get', "/Reminder/ListJsonSearch?login=" + '@ViewBag.login' + '&name=' + $('#nameFiler').val() + '&categoryId=' + $('#categoryFiler').val() + '&date=' + $('#dateFiler').val(), true);
+			xhr.onload = () => {
+				const data = JSON.parse(xhr.responseText);
+				LoadReminders(data);
+				SetColors();
+			};
+			xhr.send();
+		});
+		SetCategories();
+		SetColors();
+
+		const pollInterval = 2000;
+
+		window.setInterval(
+			() => UpdateReminders(),
+			pollInterval
+		);
+
+	</script>
+}

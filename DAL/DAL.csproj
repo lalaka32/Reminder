@@ -51,16 +51,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Abstract\INotificationRepository.cs" />
-    <Compile Include="Data\Abstract\IRepository.cs" />
-    <Compile Include="Data\Abstract\IUserRepository.cs" />
-    <Compile Include="Data\Concrete\NotificationReporitory.cs" />
+    <Compile Include="Data\Concrete\ActionRepository.cs" />
+    <Compile Include="Data\Concrete\CategoryRepository.cs" />
+    <Compile Include="Data\Concrete\RoleRepository.cs" />
+    <Compile Include="Data\Concrete\StateRepository.cs" />
+    <Compile Include="Data\Interfaces\IActionRepository.cs" />
+    <Compile Include="Data\Interfaces\ICategoryRepository.cs" />
+    <Compile Include="Data\Interfaces\IReminderRepository.cs" />
+    <Compile Include="Data\Interfaces\IReadableRepository.cs" />
+    <Compile Include="Data\Interfaces\IRepository.cs" />
+    <Compile Include="Data\Interfaces\IRoleRepository.cs" />
+    <Compile Include="Data\Interfaces\IStateRepository.cs" />
+    <Compile Include="Data\Interfaces\IUserRepository.cs" />
+    <Compile Include="Data\Concrete\ReminderReporitory.cs" />
     <Compile Include="Data\Concrete\UserRepository.cs" />
     <Compile Include="DbConstants.cs" />
     <Compile Include="DI\DALRegistry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlHelpers\Abstract\ISqlFactory.cs" />
-    <Compile Include="SqlHelpers\Concrete\SqlFactory.cs" />
+    <Compile Include="Helpers\Interfaces\IConnectionHelper.cs" />
+    <Compile Include="Helpers\Concrete\ConnectionHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entities\Entities.csproj">

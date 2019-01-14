@@ -1,6 +1,7 @@
-﻿using DAL.Data.Abstract;
-using DAL.SqlHelpers.Abstract;
+﻿using DAL.Data.Interfaces;
+using DAL.Helpers.Interfaces;
 using Entities;
+using Entities.Concrete;
 using System.Collections.Generic;
 using System.Data;
 
@@ -8,9 +9,9 @@ namespace DAL.Data.Concrete
 {
 	class UserRepository : IUserRepository
 	{
-		readonly ISqlFactory _query;
+		readonly IConnectionHelper _query;
 
-		public UserRepository(ISqlFactory query)
+		public UserRepository(IConnectionHelper query)
 		{
 			_query = query;
 		}
@@ -25,14 +26,7 @@ namespace DAL.Data.Concrete
 
 			foreach (var item in reader)
 			{
-				var user = new User
-				{
-					Id = (int)item["Id"],
-					Email = (string)item["Email"],
-					Login = (string)item["Login"],
-					UserName = (string)item["UserName"],
-					Password = (string)item["Password"]
-				};
+				var user = ConvertDataToClass(item);
 
 				allUsers.Add(user);
 			}
@@ -43,10 +37,11 @@ namespace DAL.Data.Concrete
 
 		public void Create(User data)
 		{
-			var loginParameter = _query.CreateParameter("Login", data.Login, DbType.String);
-			var passwordParameter = _query.CreateParameter("Password", data.Password, DbType.String);
-			var userNameParameter = _query.CreateParameter("UserName", data.UserName, DbType.String);
-			var emailParameter = _query.CreateParameter("Email", data.Email, DbType.String);
+			var loginParameter = _query.CreateParameter("Login", data.Login);
+			var passwordParameter = _query.CreateParameter("Password", data.Password);
+			var userNameParameter = _query.CreateParameter("UserName", data.UserName);
+			var emailParameter = _query.CreateParameter("Email", data.Email);
+			var roleId = _query.CreateParameter("RoleId", data.Role.Id);
 
 			_query.CreateConnection()
 				.CreateCommand(DbConstants.CREATE_USER)
@@ -54,24 +49,25 @@ namespace DAL.Data.Concrete
 				.AddParameter(passwordParameter)
 				.AddParameter(userNameParameter)
 				.AddParameter(emailParameter)
+				.AddParameter(roleId)
 				.ExecuteQuery();
 		}
 
 		public void Delete(int? id)
 		{
-			var idParameter = _query.CreateParameter("Id", id, DbType.Int32);
+			var idParameter = _query.CreateParameter("Id", id);
 
 			_query.CreateConnection()
-				.CreateCommand(DbConstants.CREATE_USER)
+				.CreateCommand(DbConstants.DELETE_USER)
 				.AddParameter(idParameter)
 				.ExecuteQuery();
 		}
 
 		public User Read(int? id)
 		{
-			User user = null;
+			User user =null;
 
-			var idParameter = _query.CreateParameter("id", id, DbType.Int32);
+			var idParameter = _query.CreateParameter("Id", id);
 
 			var reader = _query.CreateConnection()
 				.CreateCommand(DbConstants.GET_USER_BY_ID)
@@ -80,14 +76,7 @@ namespace DAL.Data.Concrete
 
 			foreach (var item in reader)
 			{
-				user = new User
-				{
-					Id = (int)item["Id"],
-					Email = (string)item["Email"],
-					Login = (string)item["Login"],
-					UserName = (string)item["UserName"],
-					Password = (string)item["Password"]
-				};
+				user = ConvertDataToClass(item);
 			}
 
 			return user;
@@ -95,12 +84,13 @@ namespace DAL.Data.Concrete
 
 		public void Update(User data)
 		{
-			var idParameter = _query.CreateParameter("Id", data.Login, DbType.String);
-			var loginParameter = _query.CreateParameter("Login", data.Login, DbType.String);
-			var passwordParameter = _query.CreateParameter("Password", data.Password, DbType.String);
-			var userNameParameter = _query.CreateParameter("UserName", data.UserName, DbType.String);
-			var emailParameter = _query.CreateParameter("Email", data.Email, DbType.String);
-
+			var idParameter = _query.CreateParameter("Id", data.Id, DbType.Int32);
+			var loginParameter = _query.CreateParameter("Login", data.Login);
+			var passwordParameter = _query.CreateParameter("Password", data.Password);
+			var userNameParameter = _query.CreateParameter("UserName", data.UserName);
+			var emailParameter = _query.CreateParameter("Email", data.Email);
+			var roleId = _query.CreateParameter("RoleId", data.Role.Id);
+			var type = idParameter.DbType;
 			_query.CreateConnection()
 				.CreateCommand(DbConstants.UPDATE_USER)
 				.AddParameter(idParameter)
@@ -108,7 +98,45 @@ namespace DAL.Data.Concrete
 				.AddParameter(passwordParameter)
 				.AddParameter(userNameParameter)
 				.AddParameter(emailParameter)
+				.AddParameter(roleId)
 				.ExecuteQuery();
+		}
+
+		User ConvertDataToClass(IDataRecord data)
+		{
+			User user = new User
+			{
+				Id = (int)data["Id"],
+				Email = (string)data["Email"],
+				UserName = (string)data["UserName"],
+				Login = (string)data["Login"],
+				Password = (string)data["Password"],
+				Role = new Role()
+				{
+					Id = (int)data["RoleId"],
+					Name = (string)data["RoleName"]
+				}
+			};
+			return user;
+		}
+
+		public User GetUserByLogin(string login)
+		{
+			User user = null;
+
+			var loginParameter = _query.CreateParameter("Login", login);
+
+			var reader = _query.CreateConnection()
+				.CreateCommand(DbConstants.GET_USER_BY_LOGIN)
+				.AddParameter(loginParameter)
+				.ExecuteReader();
+
+			foreach (var item in reader)
+			{
+				user = ConvertDataToClass(item);
+			}
+
+			return user;
 		}
 	}
 }

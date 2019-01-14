@@ -3,6 +3,7 @@ GO
 
 CREATE PROC UpdateUser 
 	@Id int, 
+	@RoleId INT,
 	@Email nvarchar(50),
 	@Password nvarchar(25),
 	@UserName nvarchar(25),
@@ -10,6 +11,7 @@ CREATE PROC UpdateUser
 AS
 	UPDATE Users
 		SET 
+		[RoleId] = @RoleId,
 		[Login] = @Login,
 		[Password] = @Password,
 		[UserName] = @UserName, 

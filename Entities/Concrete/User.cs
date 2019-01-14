@@ -1,4 +1,4 @@
-﻿using Entities.Abstract;
+﻿using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-	public class User : IStorageble
+	public class User
 	{
 		public int Id { get; set; }
+
+		public Role Role { get; set; }
 
 		public string Login { get; set; }
 
@@ -18,7 +20,6 @@ namespace Entities
 		public string UserName { get; set; }
 
 		public string Email { get; set; }
-
 
 	}
 }

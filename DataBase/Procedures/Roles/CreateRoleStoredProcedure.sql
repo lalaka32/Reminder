@@ -1,10 +1,10 @@
-﻿USE ReminderDB
+USE ReminderDB
 GO
 
 CREATE PROC CreateRole
-	@Name nvarchar(30),
-	@Description nvarchar(200)
+	@Name nvarchar(25)
+
 AS
-	INSERT Roles([Name], [Description])
+	INSERT Roles([Name])
 	VALUES
-	(@Name, @Description)
+	(@Name)

@@ -2,11 +2,12 @@
 GO
 
 CREATE PROC CreateUser
-	@Email nvarchar(50),
+	@RoleId INT,
+	@Login nvarchar(25),
 	@Password nvarchar(25),
 	@UserName nvarchar(25),
-	@Login nvarchar(25)
+	@Email nvarchar(50)
 AS
-	INSERT Users([UserName], [Login], [Password], [Email])
+	INSERT Users([RoleId],[Login], [Password], [UserName], [Email])
 	VALUES
-	(@UserName, @Login, @Password, @Email)
+	(@RoleId, @Login, @Password, @UserName, @Email)

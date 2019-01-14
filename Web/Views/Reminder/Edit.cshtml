@@ -1,0 +1,115 @@
+﻿@model Web.Models.Reminder.CreateReminderModel
+
+@{
+	ViewBag.Title = "Edit";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit reminder</h2>
+
+@if (Model.Picture?.Length!=0)
+{
+	<dt>
+		@Html.DisplayNameFor(model => model.Picture)
+	</dt>
+
+	<dd>
+		@Html.Raw("<img style='width:280px; height:160px;' src=\"data:image/jpeg;base64,"
+							+ Convert.ToBase64String(Model.Picture) + "\" />")
+	</dd>
+}
+
+@using (Html.BeginForm("Edit", "Reminder", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+		<hr />
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		@Html.HiddenFor(model => model.Id)
+		@Html.HiddenFor(model => model.Login)
+
+		<div class="form-group">
+			<label for="CategorySelect" class="control-label col-md-2">Category</label>
+			<div class="col-md-10">
+				<select name="CategoryId" class="form-control " id="CategorySelect"></select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			
+			@Html.LabelFor(model => model.DateOfEvent, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.TextBoxFor(m => m.DateOfEvent, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", name = "DateOfEvent" })
+				@Html.ValidationMessageFor(model => model.DateOfEvent, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.TimeOfEvent, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.TimeOfEvent, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.TimeOfEvent, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="editor-field">
+				<input type="file" name="uploadImage" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Save" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
+}
+
+<div>
+	@Html.ActionLink("Back to List", "List", new { login = Model.Login }, null)
+</div>
+
+@section scripts{
+	<script>
+
+		$(document).ready(function () {
+			const xhr = new XMLHttpRequest();
+			xhr.open('get', "/categories", true);
+			xhr.onload = () => {
+				const data = JSON.parse(xhr.responseText);
+				SetOptions(data);
+				SetSelectedCategory('@Model.CategoryId');
+			};
+			xhr.send();
+		});
+		function SetOptions(data) {
+			let result = data.map(Category => ('<option value = "' + Category.Id + '">' + Category.Name + "</option>"));
+			$('#CategorySelect').append(result);
+		}
+		function SetSelectedCategory(categoryId) {
+			$('option').each(function () {
+				if (this.getAttribute('value') == categoryId) {
+					this.setAttribute("selected", "selected");
+				}
+			});
+		}
+	</script>
+}

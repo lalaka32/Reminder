@@ -7,6 +7,5 @@ GO
 
 CREATE TABLE Roles(
 	Id int PRIMARY KEY IDENTITY,
-	[Name] nvarchar(30) NOT NULL,
-	[Description] nvarchar(200) NULL,
+	[Name] nvarchar(25),
 );

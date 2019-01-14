@@ -1,0 +1,66 @@
+﻿@model Web.Models.Reminder.ReminderViewModel
+
+@{
+	ViewBag.Title = "Details";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+	<hr />
+	<dl class="dl-horizontal">
+		@Html.HiddenFor(x => x.Id)
+		<dt>
+			@Html.DisplayNameFor(model => model.Name)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Name)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Description)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Description)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.DateOfCreation)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.DateOfCreation)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.DateOfEvent)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.DateOfEvent)
+		</dd>
+
+		@if (Model.Picture?.Length!=0)
+		{
+			<dt>
+				@Html.DisplayNameFor(model => model.Picture)
+			</dt>
+
+			<dd>
+				@Html.Raw("<img style='width:280px; height:160px;' src=\"data:image/jpeg;base64,"
+									+ Convert.ToBase64String(Model.Picture) + "\" />")
+			</dd>
+		}
+
+
+	</dl>
+</div>
+<p>
+	@Html.ActionLink("Actions", "Index", "Action", new { reminderId = Model.Id }, null) |
+	@Html.ActionLink("Delete", "Delete", new { id = Model.Id }, null) |
+	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, null) |
+	@Html.ActionLink("Back to List", "List", new { login = Model.User.Login }, null)
+</p>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3df28266-c53d-4d6f-a6bd-c1ca1d67f18d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:64330/AdvertisingService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="AdvertisingService.xsd" MetadataType="Schema" ID="85b5f1b8-9a35-4557-8a8b-2d4a70c01e2d" SourceId="1" SourceUrl="http://localhost:64330/AdvertisingService.svc?xsd=xsd2" />
+    <MetadataFile FileName="AdvertisingService1.xsd" MetadataType="Schema" ID="8f366cdf-40bb-4c4c-ad9d-ab4ebb8cb12c" SourceId="1" SourceUrl="http://localhost:64330/AdvertisingService.svc?xsd=xsd1" />
+    <MetadataFile FileName="AdvertisingService2.xsd" MetadataType="Schema" ID="55ec8e3e-bc64-4c01-b207-90baa5f9fb2f" SourceId="1" SourceUrl="http://localhost:64330/AdvertisingService.svc?xsd=xsd0" />
+    <MetadataFile FileName="AdvertisingService.wsdl" MetadataType="Wsdl" ID="05c76358-d2fe-45b4-a8ad-e0a917fbec3a" SourceId="1" SourceUrl="http://localhost:64330/AdvertisingService.svc?wsdl" />
+    <MetadataFile FileName="AdvertisingService.disco" MetadataType="Disco" ID="ee233077-495a-419e-ab45-0ad44a6aa746" SourceId="1" SourceUrl="http://localhost:64330/AdvertisingService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
