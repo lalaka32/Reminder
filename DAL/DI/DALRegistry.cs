@@ -1,13 +1,8 @@
-﻿
-using DAL.Data.Abstract;
+﻿using DAL.Data.Interfaces;
 using DAL.Data.Concrete;
-using StructureMap;
+using DAL.Helpers.Interfaces;
+using DAL.Helpers.Concrete;
 using StructureMap.Configuration.DSL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.DI
 {
@@ -15,8 +10,13 @@ namespace DAL.DI
 	{
 		public DALRegistry()
 		{
-			For<INotificationRepository>().Use<StaticNotificationRepository>();
-			For<IUserRepository>().Use<UserStaticRepository>();
+			For<IConnectionHelper>().Use<ConnectionHelper>();
+			For<IReminderRepository>().Use<ReminderReporitory>();
+			For<IUserRepository>().Use<UserRepository>();
+			For<IRoleRepository>().Use<RoleRepository>();
+			For<ICategoryRepository>().Use<CategoryRepository>();
+			For<IStateRepository>().Use<StateRepository>();
+			For<IActionRepository>().Use<ActionRepository>();
 		}
 	}
 }

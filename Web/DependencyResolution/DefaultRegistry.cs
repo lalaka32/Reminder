@@ -16,7 +16,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace Web.DependencyResolution {
-	using BLL.Services.Abstract;
+	using BLL.Services.Interfaces;
 	using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
 	using BLL.Services.Concrete;

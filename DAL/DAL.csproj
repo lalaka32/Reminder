@@ -41,6 +41,7 @@
       <HintPath>..\packages\structuremap.web.3.1.0.133\lib\net40\StructureMap.Web.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,14 +51,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Abstract\INotificationRepository.cs" />
-    <Compile Include="Data\Abstract\IRepository.cs" />
-    <Compile Include="Data\Abstract\IUserRepository.cs" />
-    <Compile Include="Data\Concrete\StaticNotificationRepository.cs" />
-    <Compile Include="Data\Concrete\StaticRepository.cs" />
-    <Compile Include="Data\Concrete\UserStaticRepository.cs" />
+    <Compile Include="Data\Concrete\ActionRepository.cs" />
+    <Compile Include="Data\Concrete\CategoryRepository.cs" />
+    <Compile Include="Data\Concrete\RoleRepository.cs" />
+    <Compile Include="Data\Concrete\StateRepository.cs" />
+    <Compile Include="Data\Interfaces\IActionRepository.cs" />
+    <Compile Include="Data\Interfaces\ICategoryRepository.cs" />
+    <Compile Include="Data\Interfaces\IReminderRepository.cs" />
+    <Compile Include="Data\Interfaces\IReadableRepository.cs" />
+    <Compile Include="Data\Interfaces\IRepository.cs" />
+    <Compile Include="Data\Interfaces\IRoleRepository.cs" />
+    <Compile Include="Data\Interfaces\IStateRepository.cs" />
+    <Compile Include="Data\Interfaces\IUserRepository.cs" />
+    <Compile Include="Data\Concrete\ReminderReporitory.cs" />
+    <Compile Include="Data\Concrete\UserRepository.cs" />
+    <Compile Include="DbConstants.cs" />
     <Compile Include="DI\DALRegistry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helpers\Interfaces\IConnectionHelper.cs" />
+    <Compile Include="Helpers\Concrete\ConnectionHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entities\Entities.csproj">
@@ -68,5 +80,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,9 +1,8 @@
-﻿<!--Check idenfication here-->
-<ul class="nav navbar-nav navbar-right">
-	@if (Request.IsAuthenticated)
+﻿<ul class="nav navbar-nav navbar-right">
+	@if (User.Identity.IsAuthenticated)
 	{
-
-		<li> User.Identity.Name</li>
+		<li>@Html.ActionLink(User.Identity.Name, "UserProfile", "Account", routeValues: new { login = User.Identity.Name }, htmlAttributes: null)</li>
+		<li>@Html.ActionLink("Logout", "Logout", "Account")</li>
 	}
 	else
 	{

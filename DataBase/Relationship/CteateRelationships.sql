@@ -1,0 +1,22 @@
+USE ReminderDB
+GO
+
+ALTER TABLE Users
+ADD CONSTRAINT FK_User_Role FOREIGN KEY(RoleId) 
+    REFERENCES Roles(Id);
+
+ALTER TABLE Reminders
+ADD CONSTRAINT FK_Reminder_User FOREIGN KEY(UserId) 
+    REFERENCES Users(Id) ON DELETE CASCADE;
+
+ALTER TABLE Reminders
+ADD CONSTRAINT FK_Reminder_Category FOREIGN KEY(CategoryId) 
+    REFERENCES Categories(Id) ON DELETE CASCADE;
+
+ALTER TABLE Reminders
+ADD CONSTRAINT FK_Reminder_State FOREIGN KEY(StateId) 
+    REFERENCES [States](Id);
+
+ALTER TABLE Actions
+ADD CONSTRAINT FK_Action_Reminder FOREIGN KEY(ReminderId) 
+    REFERENCES Reminders(Id) ON DELETE CASCADE;

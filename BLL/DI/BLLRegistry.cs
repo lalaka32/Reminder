@@ -1,4 +1,4 @@
-﻿using BLL.Services.Abstract;
+﻿using BLL.Services.Interfaces;
 using BLL.Services.Concrete;
 using StructureMap;
 using StructureMap.Configuration.DSL;
@@ -14,8 +14,14 @@ namespace BLL.DI
 	{
 		public BLLRegistry()
 		{
-			For<INotificationService>().Use<NotificationService>();
+			For<IReminderService>().Use<ReminderService>();
 			For<IUserService>().Use<UserService>();
+			For<IRoleService>().Use<RoleService>();
+			For<IAuthorizationService>().Use<AuthorizationService>();
+			For<ICategoryService>().Use<CategoryService>();
+			For<IStateService>().Use<StateService>();
+			For<IActionService>().Use<ActionService>();
+			For<IAdvertisingService>().Use<AdvertisingService>();
 		}
 	}
 }

@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{CF623990-741D-49CC-B834-5B1EF87ED7FF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{0A4B6CCC-EC79-48B0-8BBF-2587F45F160F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E22689E0-25A9-41EF-A6AB-23D5CD07AD7F} = {E22689E0-25A9-41EF-A6AB-23D5CD07AD7F}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{C4FAEF43-BD0A-4218-911D-2C8E7DC610A6}"
 EndProject
@@ -14,6 +17,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{6DE8D765-3FFA-42BF-87B6-EC6DF38FF322}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DI", "DI\DI.csproj", "{A43782F9-C27D-43FC-AD35-56BA862304C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WFC", "WFC\WFC.csproj", "{E22689E0-25A9-41EF-A6AB-23D5CD07AD7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +50,10 @@ Global
 		{A43782F9-C27D-43FC-AD35-56BA862304C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A43782F9-C27D-43FC-AD35-56BA862304C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A43782F9-C27D-43FC-AD35-56BA862304C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E22689E0-25A9-41EF-A6AB-23D5CD07AD7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E22689E0-25A9-41EF-A6AB-23D5CD07AD7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E22689E0-25A9-41EF-A6AB-23D5CD07AD7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E22689E0-25A9-41EF-A6AB-23D5CD07AD7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

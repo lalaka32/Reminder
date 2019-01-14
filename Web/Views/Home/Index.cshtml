@@ -8,6 +8,6 @@
 </div>
 
 <div class="row">
-	@Html.ActionLink("Notification", "All", "Notification")
-	@Html.ActionLink("User", "All","User")
+	@Html.Raw("<img style='width:280px; height:160px;' src=\"data:image/jpeg;base64,"
+							+ Convert.ToBase64String(ViewBag.Advert) + "\" />")
 </div>

@@ -44,17 +44,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\IStorageble.cs" />
-    <Compile Include="Concrete\Category.cs" />
-    <Compile Include="Concrete\Doing.cs" />
-    <Compile Include="Concrete\Image.cs" />
-    <Compile Include="Logger\Logger.cs" />
+    <Compile Include="Concrete\Advertising.cs" />
+    <Compile Include="Concrete\CategoryOfReminder.cs" />
+    <Compile Include="Concrete\ReminderAction.cs" />
+    <Compile Include="Concrete\Role.cs" />
+    <Compile Include="Concrete\StateOfReminder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Concrete\Notification.cs" />
+    <Compile Include="Concrete\Reminder.cs" />
     <Compile Include="Concrete\User.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Logger\logger.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
