@@ -5,7 +5,15 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+
+@if ((User.IsInRole("Admin") || User.IsInRole("Moderator")) && Model.User.Login != User.Identity.Name)
+{
+	<h2>Deteils of reminder for @Model.User.UserName </h2>
+}
+else
+{
+	<h2>Details</h2>
+}
 
 <div>
 	<hr />
@@ -43,7 +51,7 @@
 			@Html.DisplayFor(model => model.DateOfEvent)
 		</dd>
 
-		@if (Model.Picture?.Length!=0)
+		@if (Model.Picture?.Length != 0)
 		{
 			<dt>
 				@Html.DisplayNameFor(model => model.Picture)

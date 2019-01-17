@@ -13,11 +13,11 @@ namespace DAL.Data.Concrete
 	class CategoryRepository : ICategoryRepository
 	{
 
-		IConnectionHelper _query;
+		IConnectionHelper _helper;
 
-		public CategoryRepository(IConnectionHelper sqlFactory)
+		public CategoryRepository(IConnectionHelper helper)
 		{
-			_query = sqlFactory;
+			_helper = helper;
 		}
 
 
@@ -25,7 +25,7 @@ namespace DAL.Data.Concrete
 		{
 			List<CategoryOfReminder> allUsers = new List<CategoryOfReminder>();
 
-			var reader = _query.CreateConnection()
+			var reader = _helper.CreateConnection()
 				.CreateCommand(DbConstants.GET_ALL_CATEGORIES)
 				.ExecuteReader();
 
@@ -43,11 +43,9 @@ namespace DAL.Data.Concrete
 		{
 			CategoryOfReminder role = null;
 
-			var idParameter = _query.CreateParameter("Id", id);
-
-			var reader = _query.CreateConnection()
+			var reader = _helper.CreateConnection()
 				.CreateCommand(DbConstants.GET_CATEGORY_BY_ID)
-				.AddParameter(idParameter)
+				.AddParameter(_helper.CreateParameter("Id", id))
 				.ExecuteReader();
 
 			foreach (var item in reader)

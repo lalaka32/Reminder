@@ -1,4 +1,4 @@
-﻿@model Entities.User
+﻿@model Web.Models.UserModels.CreateUserViewModel
 
 @{
 	ViewBag.Title = "Edit";
@@ -75,7 +75,7 @@
 			xhr.onload = () => {
 				const data = JSON.parse(xhr.responseText);
 				SetOptions(data);
-				SetSelectedRole('@(Model.Role.Id)');
+				SetSelectedRole('@(Model.RoleId)');
 			};
 			xhr.send();
 		});

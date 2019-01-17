@@ -25,11 +25,9 @@ namespace DAL.Data.Concrete
 		{
 			List<Reminder> reminders = new List<Reminder>();
 
-			var idParameter = _query.CreateParameter("Login", login);
-
 			var reader = _query.CreateConnection()
 				.CreateCommand(DbConstants.GET_REMINDER_BY_LOGIN)
-				.AddParameter(idParameter)
+				.AddParameter(_query.CreateParameter("Login", login))
 				.ExecuteReader();
 
 			foreach (var item in reader)
@@ -83,13 +81,6 @@ namespace DAL.Data.Concrete
 
 		public void Create(Reminder data)
 		{
-			var IdUserParameter = _query.CreateParameter("UserId", data.User.Id);
-			var IdStateParameter = _query.CreateParameter("StateId", data.State.Id);
-			var IdCategoryParameter = _query.CreateParameter("CategoryId", data.Category.Id);
-			var nameParameter = _query.CreateParameter("Name", data.Name);
-			var desctiptionParametr = _query.CreateParameter("Description", data.Description);
-			var dateOfCreationParameter = _query.CreateParameter("DateOfCreation", data.DateOfCreation);
-			var dateOfEventParameter = _query.CreateParameter("DateOfEvent", data.DateOfEvent);
 			IDataParameter pictureParametr = null;
 			if (data.Picture == null)
 			{
@@ -103,24 +94,23 @@ namespace DAL.Data.Concrete
 
 			_query.CreateConnection()
 				.CreateCommand(DbConstants.CREATE_REMINDER)
-				.AddParameter(IdUserParameter)
-				.AddParameter(IdStateParameter)
-				.AddParameter(IdCategoryParameter)
-				.AddParameter(nameParameter)
-				.AddParameter(desctiptionParametr)
-				.AddParameter(dateOfCreationParameter)
-				.AddParameter(dateOfEventParameter)
+				.AddParameter(_query.CreateParameter("UserId", data.User.Id))
+				.AddParameter(_query.CreateParameter("StateId", data.State.Id))
+				.AddParameter(_query.CreateParameter("CategoryId", data.Category.Id))
+				.AddParameter(_query.CreateParameter("Name", data.Name))
+				.AddParameter(_query.CreateParameter("Description", data.Description))
+				.AddParameter(_query.CreateParameter("DateOfCreation", data.DateOfCreation))
+				.AddParameter(_query.CreateParameter("DateOfEvent", data.DateOfEvent))
 				.AddParameter(pictureParametr)
 				.ExecuteQuery();
 		}
 
 		public void Delete(int? id)
 		{
-			var idParameter = _query.CreateParameter("Id", id);
 
 			_query.CreateConnection()
 				.CreateCommand(DbConstants.DELETE_REMINDER)
-				.AddParameter(idParameter)
+				.AddParameter(_query.CreateParameter("Id", id))
 				.ExecuteQuery();
 		}
 
@@ -147,11 +137,9 @@ namespace DAL.Data.Concrete
 		{
 			Reminder reminder = null;
 
-			var idParameter = _query.CreateParameter("Id", id);
-
 			var reader = _query.CreateConnection()
 				.CreateCommand(DbConstants.GET_REMINDER_BY_ID)
-				.AddParameter(idParameter)
+				.AddParameter(_query.CreateParameter("Id", id))
 				.ExecuteReader();
 
 			foreach (var item in reader)
@@ -163,14 +151,6 @@ namespace DAL.Data.Concrete
 
 		public void Update(Reminder data)
 		{
-			var IdParameter = _query.CreateParameter("Id", data.Id);
-			var IdUserParameter = _query.CreateParameter("UserId", data.User.Id);
-			var IdStateParameter = _query.CreateParameter("StateId", data.State.Id);
-			var IdCategoryParameter = _query.CreateParameter("CategoryId", data.Category.Id);
-			var nameParameter = _query.CreateParameter("Name", data.Name);
-			var desctiptionParametr = _query.CreateParameter("Description", data.Description);
-			var dateOfCreationParameter = _query.CreateParameter("DateOfCreation", data.DateOfCreation);
-			var dateOfEventParameter = _query.CreateParameter("DateOfEvent", data.DateOfEvent);
 			IDataParameter pictureParametr = null;
 			if (data.Picture == null)
 			{
@@ -184,14 +164,14 @@ namespace DAL.Data.Concrete
 
 			_query.CreateConnection()
 				.CreateCommand(DbConstants.UPDATE_REMINDER)
-				.AddParameter(IdParameter)
-				.AddParameter(IdUserParameter)
-				.AddParameter(IdStateParameter)
-				.AddParameter(IdCategoryParameter)
-				.AddParameter(nameParameter)
-				.AddParameter(desctiptionParametr)
-				.AddParameter(dateOfCreationParameter)
-				.AddParameter(dateOfEventParameter)
+				.AddParameter(_query.CreateParameter("Id", data.Id))
+				.AddParameter(_query.CreateParameter("UserId", data.User.Id))
+				.AddParameter(_query.CreateParameter("StateId", data.State.Id))
+				.AddParameter(_query.CreateParameter("CategoryId", data.Category.Id))
+				.AddParameter(_query.CreateParameter("Name", data.Name))
+				.AddParameter(_query.CreateParameter("Description", data.Description))
+				.AddParameter(_query.CreateParameter("DateOfCreation", data.DateOfCreation))
+				.AddParameter(_query.CreateParameter("DateOfEvent", data.DateOfEvent))
 				.AddParameter(pictureParametr)
 				.ExecuteQuery();
 		}

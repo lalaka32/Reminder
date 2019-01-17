@@ -65,6 +65,7 @@ namespace DAL.Helpers.Concrete
 						yield return read;
 					}
 				}
+				_sqlConnection.Close();
 			}
 		}
 
