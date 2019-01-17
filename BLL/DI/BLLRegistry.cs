@@ -21,7 +21,7 @@ namespace BLL.DI
 			For<ICategoryService>().Use<CategoryService>();
 			For<IStateService>().Use<StateService>();
 			For<IActionService>().Use<ActionService>();
-			For<IAdvertisingService>().Use<AdvertisingService>();
+			For<IAdvertisingService>().Singleton().Use<AdvertisingService>();
 		}
 	}
 }

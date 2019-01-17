@@ -168,6 +168,7 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActionController.cs" />
+    <Compile Include="Controllers\AdvertisingController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReminderController.cs" />
@@ -186,8 +187,10 @@
     <Compile Include="Models\ReminderAction\ReminderActionViewModel.cs" />
     <Compile Include="Models\Reminder\CreateReminderModel.cs" />
     <Compile Include="Models\Reminder\ReminderViewModel.cs" />
-    <Compile Include="Models\UserModels\CreateUser.cs" />
+    <Compile Include="Models\UserModels\CreateUserViewModel.cs" />
     <Compile Include="Models\UserModels\ProfileViewModel.cs" />
+    <Compile Include="Models\UserModels\UserViewModel.cs" />
+    <Compile Include="Models\ValidationAttributes\DateOnlyFuture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +211,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="app.config" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -255,6 +259,7 @@
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Account\EditProfile.cshtml" />
     <Content Include="Views\Reminder\Edit.cshtml" />
+    <Content Include="Views\Advertising\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

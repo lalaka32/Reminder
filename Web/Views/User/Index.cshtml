@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Entities.User>
+﻿@model IEnumerable<Web.Models.UserModels.UserViewModel>
 
 @{
 	ViewBag.Title = "Index";
@@ -8,19 +8,25 @@
 <h2>Users</h2>
 
 <p>
-	@Html.ActionLink("Create New User", "Create")
+	@if (User.IsInRole("Admin"))
+	{
+		@Html.ActionLink("Create New User", "Create")
+	}
 </p>
 <table class="table">
 	<tr>
 		<th>
-			Role @Html.DisplayNameFor(model => model.Role.Name)
+			@Html.DisplayNameFor(model => model.Role)
 		</th>
 		<th>
 			@Html.DisplayNameFor(model => model.Login)
 		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.Password)
-		</th>
+		@if (User.IsInRole("Admin"))
+		{
+			<th>
+				@Html.DisplayNameFor(model => model.Password)
+			</th>
+		}
 		<th>
 			@Html.DisplayNameFor(model => model.UserName)
 		</th>
@@ -34,14 +40,17 @@
 	{
 		<tr>
 			<td>
-				@Html.DisplayFor(modelItem => item.Role.Name)
+				@Html.DisplayFor(modelItem => item.Role)
 			</td>
 			<td>
 				@Html.DisplayFor(modelItem => item.Login)
 			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Password)
-			</td>
+			@if (User.IsInRole("Admin"))
+			{
+				<td>
+					@Html.DisplayFor(modelItem => item.Password)
+				</td>
+			}
 			<td>
 				@Html.DisplayFor(modelItem => item.UserName)
 			</td>

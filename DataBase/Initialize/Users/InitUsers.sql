@@ -27,9 +27,3 @@ SET @Password = 'Admin123'
 SET @UserName = 'AdminName'
 SET @Login = 'Admin'
 EXECUTE CreateUser @RoleId, @Login, @Password, @UserName, @Email
-
-SET @Email = 'User2@mail.com'
-SET @Password = 'User123'
-SET @UserName = 'UserName2'
-SET @Login = 'User2'
-EXECUTE CreateUser @RoleId, @Login, @Password, @UserName, @Email

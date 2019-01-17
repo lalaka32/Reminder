@@ -51,11 +51,9 @@ namespace DAL.Data.Concrete
 		{
 			StateOfReminder role = null;
 
-			var idParameter = _query.CreateParameter("Id", id);
-
 			var reader = _query.CreateConnection()
 				.CreateCommand(DbConstants.GET_STATE_BY_ID)
-				.AddParameter(idParameter)
+				.AddParameter(_query.CreateParameter("Id", id))
 				.ExecuteReader();
 
 			foreach (var item in reader)

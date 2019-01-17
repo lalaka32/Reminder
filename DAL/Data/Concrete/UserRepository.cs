@@ -37,29 +37,22 @@ namespace DAL.Data.Concrete
 
 		public void Create(User data)
 		{
-			var loginParameter = _query.CreateParameter("Login", data.Login);
-			var passwordParameter = _query.CreateParameter("Password", data.Password);
-			var userNameParameter = _query.CreateParameter("UserName", data.UserName);
-			var emailParameter = _query.CreateParameter("Email", data.Email);
-			var roleId = _query.CreateParameter("RoleId", data.Role.Id);
 
 			_query.CreateConnection()
 				.CreateCommand(DbConstants.CREATE_USER)
-				.AddParameter(loginParameter)
-				.AddParameter(passwordParameter)
-				.AddParameter(userNameParameter)
-				.AddParameter(emailParameter)
-				.AddParameter(roleId)
+				.AddParameter(_query.CreateParameter("Login", data.Login))
+				.AddParameter(_query.CreateParameter("Password", data.Password))
+				.AddParameter(_query.CreateParameter("UserName", data.UserName))
+				.AddParameter(_query.CreateParameter("Email", data.Email))
+				.AddParameter(_query.CreateParameter("RoleId", data.Role.Id))
 				.ExecuteQuery();
 		}
 
 		public void Delete(int? id)
 		{
-			var idParameter = _query.CreateParameter("Id", id);
-
 			_query.CreateConnection()
 				.CreateCommand(DbConstants.DELETE_USER)
-				.AddParameter(idParameter)
+				.AddParameter(_query.CreateParameter("Id", id))
 				.ExecuteQuery();
 		}
 
@@ -67,11 +60,9 @@ namespace DAL.Data.Concrete
 		{
 			User user =null;
 
-			var idParameter = _query.CreateParameter("Id", id);
-
 			var reader = _query.CreateConnection()
 				.CreateCommand(DbConstants.GET_USER_BY_ID)
-				.AddParameter(idParameter)
+				.AddParameter(_query.CreateParameter("Id", id))
 				.ExecuteReader();
 
 			foreach (var item in reader)
@@ -84,21 +75,14 @@ namespace DAL.Data.Concrete
 
 		public void Update(User data)
 		{
-			var idParameter = _query.CreateParameter("Id", data.Id, DbType.Int32);
-			var loginParameter = _query.CreateParameter("Login", data.Login);
-			var passwordParameter = _query.CreateParameter("Password", data.Password);
-			var userNameParameter = _query.CreateParameter("UserName", data.UserName);
-			var emailParameter = _query.CreateParameter("Email", data.Email);
-			var roleId = _query.CreateParameter("RoleId", data.Role.Id);
-			var type = idParameter.DbType;
 			_query.CreateConnection()
 				.CreateCommand(DbConstants.UPDATE_USER)
-				.AddParameter(idParameter)
-				.AddParameter(loginParameter)
-				.AddParameter(passwordParameter)
-				.AddParameter(userNameParameter)
-				.AddParameter(emailParameter)
-				.AddParameter(roleId)
+				.AddParameter(_query.CreateParameter("Id", data.Id, DbType.Int32))
+				.AddParameter(_query.CreateParameter("Login", data.Login))
+				.AddParameter(_query.CreateParameter("Password", data.Password))
+				.AddParameter(_query.CreateParameter("UserName", data.UserName))
+				.AddParameter(_query.CreateParameter("Email", data.Email))
+				.AddParameter(_query.CreateParameter("RoleId", data.Role.Id))
 				.ExecuteQuery();
 		}
 
@@ -124,11 +108,9 @@ namespace DAL.Data.Concrete
 		{
 			User user = null;
 
-			var loginParameter = _query.CreateParameter("Login", login);
-
 			var reader = _query.CreateConnection()
 				.CreateCommand(DbConstants.GET_USER_BY_LOGIN)
-				.AddParameter(loginParameter)
+				.AddParameter(_query.CreateParameter("Login", login))
 				.ExecuteReader();
 
 			foreach (var item in reader)

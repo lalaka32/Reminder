@@ -62,7 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdvertisingService.svc" />
+    <Content Include="App_Data\Content\asp-net-mvc.jpg" />
     <Content Include="App_Data\Content\visual-studio-2019.jpg" />
+    <Content Include="App_Data\Content\VS-code.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

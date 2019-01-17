@@ -13,43 +13,38 @@ namespace DAL.Data.Concrete
 	public class ActionRepository : IActionRepository
 	{
 
-		readonly IConnectionHelper _query;
+		readonly IConnectionHelper _helper;
 
-		public ActionRepository(IConnectionHelper query)
+		public ActionRepository(IConnectionHelper helper)
 		{
-			_query = query;
+			_helper = helper;
 		}
 
 		public void Create(ReminderAction data)
 		{
-			var idReminderParameter = _query.CreateParameter("ReminderId", data.IdReminder);
-			var descriptionParameter = _query.CreateParameter("Description", data.Description);
-
-			_query.CreateConnection()
+			_helper.CreateConnection()
 				.CreateCommand(DbConstants.CREATE_ACTION)
-				.AddParameter(idReminderParameter)
-				.AddParameter(descriptionParameter)
+				.AddParameter(_helper.CreateParameter("ReminderId", data.IdReminder))
+				.AddParameter(_helper.CreateParameter("Description", data.Description))
 				.ExecuteQuery();
 		}
 
 		public void Delete(int? id)
 		{
-			var idParameter = _query.CreateParameter("Id", id);
 
-			_query.CreateConnection()
+			_helper.CreateConnection()
 				.CreateCommand(DbConstants.DELETE_ACTION)
-				.AddParameter(idParameter)
+				.AddParameter(_helper.CreateParameter("Id", id))
 				.ExecuteQuery();
 		}
 
 		public IEnumerable<ReminderAction> GetActionsByReminderId(int reminderId)
 		{
 			List<ReminderAction> allActions = new List<ReminderAction>();
-			var reminderIdParameter = _query.CreateParameter("ReminderId", reminderId);
 
-			var reader = _query.CreateConnection()
+			var reader = _helper.CreateConnection()
 				.CreateCommand(DbConstants.GET_ACTION_BY_REMINDER_ID)
-				.AddParameter(reminderIdParameter)
+				.AddParameter(_helper.CreateParameter("ReminderId", reminderId))
 				.ExecuteReader();
 
 			foreach (var item in reader)
@@ -66,7 +61,7 @@ namespace DAL.Data.Concrete
 		{
 			List<ReminderAction> allActions = new List<ReminderAction>();
 
-			var reader = _query.CreateConnection()
+			var reader = _helper.CreateConnection()
 				.CreateCommand(DbConstants.GET_ALL_ACTIONS)
 				.ExecuteReader();
 
@@ -84,11 +79,9 @@ namespace DAL.Data.Concrete
 		{
 			ReminderAction action = null;
 
-			var idParameter = _query.CreateParameter("Id", id);
-
-			var reader = _query.CreateConnection()
+			var reader = _helper.CreateConnection()
 				.CreateCommand(DbConstants.GET_ACTION_BY_ID)
-				.AddParameter(idParameter)
+				.AddParameter(_helper.CreateParameter("Id", id))
 				.ExecuteReader();
 
 			foreach (var item in reader)
@@ -101,14 +94,11 @@ namespace DAL.Data.Concrete
 
 		public void Update(ReminderAction data)
 		{
-			var idParameter = _query.CreateParameter("Id", data.Id, DbType.Int32);
-			var reminderIdParameter = _query.CreateParameter("ReminderId", data.IdReminder);
-			var descriptionParameter = _query.CreateParameter("Description", data.Description);
-			_query.CreateConnection()
+			_helper.CreateConnection()
 				.CreateCommand(DbConstants.UPDATE_ACTION)
-				.AddParameter(idParameter)
-				.AddParameter(reminderIdParameter)
-				.AddParameter(descriptionParameter)
+				.AddParameter(_helper.CreateParameter("Id", data.Id, DbType.Int32))
+				.AddParameter(_helper.CreateParameter("ReminderId", data.IdReminder))
+				.AddParameter(_helper.CreateParameter("Description", data.Description))
 				.ExecuteQuery();
 		}
 

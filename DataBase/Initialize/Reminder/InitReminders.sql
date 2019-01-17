@@ -16,7 +16,7 @@ SET @StateId = 3
 SET @CategoryId = 10
 SET @Description = 'It will be cool event with my friends'
 SET @DateOfCreation = '2018-12-12 16:20:00.000'
-SET @DateOfEvent = '2019-01-01 00:00:00.000'
+SET @DateOfEvent = '2018-31-12 23:00:00.000'
 SET @Picture = null
 EXECUTE CreateReminder @UserId, @StateId, @CategoryId, @Name, @Description, @DateOfCreation, @DateOfEvent, @Picture
 

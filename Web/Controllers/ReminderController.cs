@@ -62,7 +62,7 @@ namespace Web.Controllers
 				Description = reminder.Description,
 				Picture = reminder.Picture,
 				State = reminder.State,
-				User = reminder.User
+				User = reminder.User,
 			};
 
 		}
@@ -70,11 +70,13 @@ namespace Web.Controllers
 		[Authorize]
 		public ActionResult Create(string login)
 		{
+			var user = _userService.GetUserByLogin(login);
 			CreateReminderModel model = new CreateReminderModel()
 			{
 				DateOfEvent = DateTime.Now,
 				TimeOfEvent = DateTime.Now,
-				Login = login
+				Login = login,
+				UserName = user.UserName
 			};
 			return View(model);
 		}
@@ -146,18 +148,19 @@ namespace Web.Controllers
 		[Authorize]
 		public ActionResult Edit(int id)
 		{
-			var action = _reminderService.Read(id);
+			var reminder = _reminderService.Read(id);
 			CreateReminderModel model = new CreateReminderModel()
 			{
-				Id = action.Id,
-				Name = action.Name,
-				CategoryId = action.Category.Id,
-				DateOfCreation = action.DateOfCreation,
-				DateOfEvent = action.DateOfEvent.Date,
-				Description = action.Description,
-				Login = action.User.Login,
-				Picture = action.Picture,
-				TimeOfEvent = action.DateOfEvent
+				Id = reminder.Id,
+				Name = reminder.Name,
+				CategoryId = reminder.Category.Id,
+				DateOfCreation = reminder.DateOfCreation,
+				DateOfEvent = reminder.DateOfEvent.Date,
+				Description = reminder.Description,
+				Login = reminder.User.Login,
+				Picture = reminder.Picture,
+				TimeOfEvent = reminder.DateOfEvent,
+				UserName = reminder.User.UserName
 			};
 			return View(model);
 		}
@@ -200,7 +203,7 @@ namespace Web.Controllers
 					Picture = viewModel.Picture,
 					DateOfCreation = DateTime.Now,
 					DateOfEvent = viewModel.DateOfEvent
-					
+
 				};
 				reminder.DateOfEvent = reminder.DateOfEvent.AddHours(viewModel.TimeOfEvent.Hour);
 				reminder.DateOfEvent = reminder.DateOfEvent.AddMinutes(viewModel.TimeOfEvent.Minute);

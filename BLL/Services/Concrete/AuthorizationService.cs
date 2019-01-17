@@ -33,7 +33,7 @@ namespace BLL.Services.Concrete
 			}
 			if (user.Password != password)
 			{
-				return new OperationInfo(false, "Wrong password");
+				return new OperationInfo(false, "Wrong password", "Password");
 			}
 			SetCookies(user);
 
@@ -70,15 +70,15 @@ namespace BLL.Services.Concrete
 
 			if (users.FirstOrDefault(x => x.Login == user.Login) != null)
 			{
-				return new OperationInfo(false, "Login is occupied");
+				return new OperationInfo(false, "Login is occupied", "Login");
 			}
 
 			if (users.FirstOrDefault(x => x.Email == user.Email) != null)
 			{
-				return new OperationInfo(false, "Email is occupied");
+				return new OperationInfo(false, "Email is occupied", "Email");
 			}
 
-			user.Role = _roleRepository.Read(LogicConstants.ID_USER_ROLE);
+			user.Role = _roleRepository.GetAll().Single(x=>x.Name == "User");
 
 			_userRepository.Create(user);
 
@@ -93,12 +93,12 @@ namespace BLL.Services.Concrete
 
 			if (users.FirstOrDefault(x => x.Login == user.Login && x.Id!=user.Id) != null)
 			{
-				return new OperationInfo(false, "Login is occupied");
+				return new OperationInfo(false, "Login is occupied", "Login");
 			}
 
 			if (users.FirstOrDefault(x => x.Email == user.Email && x.Id != user.Id) != null)
 			{
-				return new OperationInfo(false, "Email is occupied");
+				return new OperationInfo(false, "Email is occupied", "Email");
 			}
 
 			_userRepository.Update(user);

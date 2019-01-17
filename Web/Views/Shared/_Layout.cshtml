@@ -45,7 +45,17 @@
 		@RenderBody()
 		<hr />
 		<footer>
-			<p>&copy; @DateTime.Now.Year – Reminder</p>
+			<div class="row">
+				<div class="col-md-6">
+					<p>&copy; @DateTime.Now.Year – Reminder</p>
+				</div>
+				<div class="col-md-6">
+					<h4>Advertising :</h4>
+					@Html.Action("Index", "Advertising")
+				</div>
+
+			</div>
+			
 		</footer>
 	</div>
 

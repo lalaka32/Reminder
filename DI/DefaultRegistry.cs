@@ -21,6 +21,7 @@ namespace DI {
 	using StructureMap;
 	using DAL.DI;
 	using BLL.DI;
+	using Entities.DI;
 
 	public class DefaultRegistry : Registry {
         #region Constructors and Destructors
@@ -30,11 +31,10 @@ namespace DI {
                 scan => {
                     scan.AssemblyContainingType<DALRegistry>();
 					scan.AssemblyContainingType<BLLRegistry>();
+					scan.AssemblyContainingType<EntitiesRegistry>();
 					scan.TheCallingAssembly();
-					//scan.WithDefaultConventions();
 					scan.LookForRegistries();
                 });
-            //For<IExample>().Use<Example>();
         }
 
         #endregion

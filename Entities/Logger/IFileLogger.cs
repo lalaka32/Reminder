@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL
+namespace Entities.Logger
 {
-	class LogicConstants
+	public interface IFileLogger
 	{
-		public const int ID_USER_ROLE = 1;
+		void WriteToFile(string message);
 	}
 }

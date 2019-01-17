@@ -9,10 +9,10 @@ namespace Web.Models.Account
 	public class LoginModel
 	{
 
-		[Required(ErrorMessage = "Enter the value")]
+		[Required(ErrorMessage = "Enter the login")]
 		public string Login { get; set; }
 
-		[Required(ErrorMessage = "Enter the value")]
+		[Required(ErrorMessage = "Enter the password")]
 		[DataType(DataType.Password)]
 		public string Password { get; set; }
 	}
